@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio website showcasing projects and professional experience">
+    <title>Ardava Barus - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h2>Ardava Barus</h2>
+            </div>            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Profile Section -->
+        <section id="home" class="profile-section">
+            <div class="container">
+                <div class="profile-content">
+                    <div class="profile-image">
+                        <img src="assets/profile-photo.jpg" alt="Ardava Barus - Profile Photo">
+                    </div>
+                    <div class="profile-text">                        <h1>Hello, I'm <span class="highlight">Ardava Barus</span></h1>
+                        <h2 class="subtitle">I'm a <span class="typedText"></span></h2>
+                        <p class="bio">
+                            I'm passionate about developing intelligent systems that transform data into actionable insights. 
+                            With expertise in machine learning model development, deployment and scalability, and AI-driven application development, 
+                            I enjoy solving complex problems through innovative AI solutions.
+                        </p>
+                        <div class="profile-actions">
+                            <a href="assets/resume.pdf" download class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                                Download Resume
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech-stack" class="tech-stack-section">
+            <div class="container">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-code"></i>
+                            Programming Languages
+                        </h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-js-square"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-code"></i>
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3 class="category-title">
+                            <i class="fas fa-brain"></i>
+                            AI/ML Frameworks & Libraries
+                        </h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <i class="fas fa-cogs"></i>
+                                <span>Scikit-learn</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-network-wired"></i>
+                                <span>TensorFlow</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-fire"></i>
+                                <span>PyTorch</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-robot"></i>
+                                <span>Hugging Face</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>ONNX</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>MLflow</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-flask"></i>
+                                <span>Flask</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-microsoft"></i>
+                                <span>Azure</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-eye"></i>
+                                <span>OpenCV</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carousel-track">
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="assets/project1.jpg" alt="ML Model Deployment Platform">
+                                </div>
+                                <div class="project-content">
+                                    <h3>Abstractive Indonesian Text Summarization Model</h3>
+                                    <p>A deep learning-based Indonesian text summarization system that combines BERT and GPT-2 in an encoder-decoder architecture, fine-tuned on local news datasets to generate high-quality abstractive summaries with improved ROUGE metrics.</p>                                    <div class="project-tech">
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">PyTorch</span>
+                                        <span class="tech-tag">Huggingface</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-small" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <span>Live Demo</span>
+                                        </a>
+                                        <a href="#" class="btn btn-small btn-outline" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="assets/project2.jpg" alt="Computer Vision Analytics">
+                                </div>
+                                <div class="project-content">
+                                    <h3>Computer Vision Analytics</h3>
+                                    <p>Real-time object detection and analysis system using deep learning for automated quality control in manufacturing environments.</p>
+                                    <div class="project-tech">                                        <span class="tech-tag">PyTorch</span>
+                                        <span class="tech-tag">OpenCV</span>
+                                        <span class="tech-tag">ONNX</span>
+                                        <span class="tech-tag">Flask</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-small" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <span>Live Demo</span>
+                                        </a>
+                                        <a href="#" class="btn btn-small btn-outline" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="assets/project3.jpg" alt="NLP Text Analysis Suite">
+                                </div>
+                                <div class="project-content">
+                                    <h3>NLP Text Analysis Suite</h3>
+                                    <p>Advanced natural language processing toolkit with sentiment analysis, entity recognition, and text classification using transformer models.</p>
+                                    <div class="project-tech">                                        <span class="tech-tag">Hugging Face</span>
+                                        <span class="tech-tag">Transformers</span>
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">Scikit-learn</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-small" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <span>Live Demo</span>
+                                        </a>
+                                        <a href="#" class="btn btn-small btn-outline" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="assets/project4.jpg" alt="Predictive Analytics Dashboard">
+                                </div>
+                                <div class="project-content">
+                                    <h3>Predictive Analytics Dashboard</h3>
+                                    <p>Interactive dashboard for time series forecasting and predictive analytics with real-time data visualization and automated insights.</p>
+                                    <div class="project-tech">                                        <span class="tech-tag">TensorFlow</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">Flask</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-small" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <span>Live Demo</span>
+                                        </a>
+                                        <a href="#" class="btn btn-small btn-outline" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="assets/project5.jpg" alt="AI Recommendation Engine">
+                                </div>
+                                <div class="project-content">
+                                    <h3>AI Recommendation Engine</h3>
+                                    <p>Personalized recommendation system using collaborative filtering and deep learning to enhance user experience across e-commerce platforms.</p>
+                                    <div class="project-tech">                                        <span class="tech-tag">PyTorch</span>
+                                        <span class="tech-tag">Scikit-learn</span>
+                                        <span class="tech-tag">MLflow</span>
+                                        <span class="tech-tag">Azure</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="btn btn-small" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            <span>Live Demo</span>
+                                        </a>
+                                        <a href="#" class="btn btn-small btn-outline" target="_blank">
+                                            <i class="fab fa-github"></i>
+                                            <span>Code</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-btn-prev" id="carousel-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn carousel-btn-next" id="carousel-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="carousel-indicators" id="carousel-indicators"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-text">
+                        <p>I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to say hello, feel free to reach out!</p>
+                    </div>
+                    <div class="contact-methods">
+                        <a href="mailto:ardavamuhammad@gmail.com" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>ardavamuhammad@gmail.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/ardava-barus" class="contact-item" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/Ardavaa" class="contact-item" target="_blank">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ardava Barus. All rights reserved.</p>
+        </div>    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="script.js"></script>
+</body>
+</html>
