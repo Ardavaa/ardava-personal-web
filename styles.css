@@ -12,6 +12,12 @@
   --shadow-light: rgba(0, 0, 0, 0.05);
   --shadow-medium: rgba(0, 0, 0, 0.1);
   --shadow-heavy: rgba(0, 0, 0, 0.15);
+  
+  /* Responsive viewport units */
+  --vh: 1vh;
+  --container-padding: 2rem;
+  --section-padding: 5rem;
+  --header-height: 80px;
 }
 
 [data-theme="dark"] {
@@ -104,7 +110,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--container-padding);
+  width: 100%;
 }
 
 /* Header Styles */
@@ -117,6 +124,7 @@ body {
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
   transition: all 0.3s ease;
+  height: var(--header-height);
 }
 
 .nav {
@@ -126,6 +134,8 @@ body {
   padding: 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  height: 100%;
+  position: relative;
 }
 
 .nav-brand h2 {
@@ -169,17 +179,40 @@ body {
   color: var(--accent-primary);
 }
 
+/* Mobile Navigation Styles */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: var(--bg-secondary);
+  color: var(--accent-primary);
+}
+
 /* Main Content */
 main {
-  margin-top: 80px;
+  margin-top: var(--header-height);
 }
 
 /* Profile Section */
 .profile-section {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
-  padding: 4rem 0;
+  padding: var(--section-padding) 0;
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
 }
 
@@ -696,7 +729,22 @@ main {
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1200px) {
+  :root {
+    --container-padding: 1.5rem;
+    --section-padding: 4rem;
+  }
+  
+  .profile-content {
+    gap: 3rem;
+  }
+  
+  .profile-text h1 {
+    font-size: 2.5rem;
+  }
+  
   .projects-carousel .project-card {
     flex: 0 0 calc(50% - 1rem);
     min-width: 300px;
@@ -712,7 +760,140 @@ main {
   }
 }
 
+/* Tablets */
+@media (max-width: 1024px) {
+  :root {
+    --container-padding: 1.5rem;
+    --section-padding: 3.5rem;
+  }
+  
+  .profile-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  
+  .profile-image {
+    order: -1;
+  }
+  
+  .profile-image img {
+    max-width: 300px;
+    height: 300px;
+  }
+  
+  .profile-text h1 {
+    font-size: 2.2rem;
+  }
+  
+  .profile-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .projects-carousel .project-card {
+    flex: 0 0 calc(60% - 1rem);
+    min-width: 280px;
+  }
+}
+
+/* Mobile Tablets */
 @media (max-width: 768px) {
+  :root {
+    --container-padding: 1rem;
+    --section-padding: 3rem;
+    --header-height: 70px;
+  }
+  
+  /* Navigation */
+  .nav {
+    padding: 0.75rem 1rem;
+    justify-content: center;
+  }
+  
+  .nav-brand {
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    background-color: var(--bg-primary);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 0;
+    gap: 1.5rem;
+    transition: left 0.3s ease;
+    border-right: 1px solid var(--border-color);
+    z-index: 999;
+  }
+  
+  .nav-links.mobile-open {
+    left: 0;
+  }
+  
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  .theme-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Profile Section */
+  .profile-section {
+    padding: 2rem 0;
+    min-height: calc(100vh - var(--header-height));
+  }
+  
+  .profile-content {
+    gap: 2rem;
+  }
+  
+  .profile-image img {
+    max-width: 250px;
+    height: 250px;
+  }
+  
+  .profile-text h1 {
+    font-size: 1.8rem;
+    line-height: 1.1;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .bio {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .profile-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* Projects */
   .projects-carousel .project-card {
     flex: 0 0 calc(100% - 2rem);
     min-width: 280px;
@@ -732,6 +913,7 @@ main {
     right: -20px;
   }
   
+  /* Tech Stack */
   .tech-category {
     padding: 1.5rem;
   }
@@ -748,9 +930,93 @@ main {
   .tech-item i {
     font-size: 1.5rem;
   }
+  
+  /* Contact */
+  .contact-methods {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .contact-method {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
 }
 
+/* Mobile Phones */
 @media (max-width: 480px) {
+  :root {
+    --container-padding: 1rem;
+    --section-padding: 2.5rem;
+    --header-height: 60px;
+  }
+  
+  /* Navigation */
+  .nav {
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-brand h2 {
+    font-size: 1.3rem;
+  }
+  
+  .nav-links {
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    padding: 1.5rem 0;
+  }
+  
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .mobile-menu-toggle {
+    font-size: 1.3rem;
+    padding: 0.4rem;
+  }
+  
+  /* Profile Section */
+  .profile-section {
+    padding: 1.5rem 0;
+    min-height: calc(100vh - var(--header-height));
+  }
+  
+  .profile-content {
+    gap: 1.5rem;
+  }
+  
+  .profile-image img {
+    max-width: 200px;
+    height: 200px;
+  }
+  
+  .profile-text h1 {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .bio {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Sections */
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Carousel */
   .carousel-track {
     padding: 0.5rem;
   }
@@ -761,8 +1027,56 @@ main {
     font-size: 0.9rem;
   }
   
+  /* Tech Stack */
   .tech-categories {
     gap: 1.5rem;
+  }
+  
+  .tech-category h3 {
+    font-size: 1.1rem;
+  }
+  
+  .tech-items {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .tech-item {
+    padding: 0.5rem;
+  }
+  
+  .tech-item i {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .tech-item span {
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+  :root {
+    --container-padding: 0.75rem;
+    --section-padding: 2rem;
+  }
+  
+  .profile-text h1 {
+    font-size: 1.4rem;
+  }
+  
+  .profile-image img {
+    max-width: 180px;
+    height: 180px;
+  }
+  
+  .projects-carousel .project-card {
+    min-width: 260px;
+  }
+  
+  .tech-items {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
   }
 }
 
@@ -782,5 +1096,133 @@ main {
 
 /* Smooth scrolling for anchor links */
 html {
-  scroll-padding-top: 80px;
+  scroll-padding-top: var(--header-height);
+}
+
+/* Touch and gesture support for mobile */
+.projects-carousel {
+  touch-action: pan-x;
+}
+
+.carousel-track {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Accessibility improvements */
+@media (max-width: 768px) {
+  /* Ensure touch targets are at least 44px */
+  .nav-links a,
+  .btn,
+  .mobile-menu-toggle,
+  .theme-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Focus styles for better accessibility */
+  .mobile-menu-toggle:focus,
+  .nav-links a:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Mobile Device Optimizations */
+.mobile-device {
+  /* Reduce expensive animations on mobile */
+  --animation-duration: 0.2s;
+}
+
+.low-end-device * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.touch-device .btn:hover,
+.touch-device .theme-toggle:hover,
+.touch-device .nav-links a:hover {
+  /* Remove hover effects on touch devices */
+  transform: none;
+}
+
+.touch-device .btn:active,
+.touch-device .theme-toggle:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Improved focus styles for accessibility */
+.nav-links a:focus-visible,
+.btn:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --shadow-light: rgba(0, 0, 0, 0.8);
+    --shadow-medium: rgba(0, 0, 0, 0.9);
+  }
+  
+  [data-theme="dark"] {
+    --border-color: #ffffff;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .profile-image img,
+  .profile-image {
+    animation: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .mobile-menu-toggle,
+  .theme-toggle,
+  .carousel-btn,
+  .carousel-indicators {
+    display: none !important;
+  }
+  
+  main {
+    margin-top: 0 !important;
+  }
+  
+  .profile-section,
+  .projects-section,
+  .tech-section,
+  .contact-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }

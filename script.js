@@ -162,11 +162,11 @@ class MobileMenu {
         const mobileMenuBtn = document.createElement('button');
         mobileMenuBtn.className = 'mobile-menu-toggle';
         mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        mobileMenuBtn.style.display = 'none';
+        mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
         
-        // Insert before theme toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        nav.insertBefore(mobileMenuBtn, themeToggle);
+        // Insert at the beginning of nav for top-left position
+        nav.insertAdjacentElement('afterbegin', mobileMenuBtn);
         
         this.mobileMenuBtn = mobileMenuBtn;
         this.navLinks = navLinks;
@@ -180,31 +180,54 @@ class MobileMenu {
             link.addEventListener('click', () => this.closeMobileMenu());
         });
 
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav') && this.navLinks.classList.contains('mobile-open')) {
+                this.closeMobileMenu();
+            }
+        });
+
         // Handle resize
         window.addEventListener('resize', () => this.handleResize());
         this.handleResize();
+        
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.navLinks.classList.contains('mobile-open')) {
+                this.closeMobileMenu();
+                this.mobileMenuBtn.focus();
+            }
+        });
     }
 
     toggleMobileMenu() {
-        this.navLinks.classList.toggle('mobile-open');
+        const isOpen = this.navLinks.classList.toggle('mobile-open');
         const icon = this.mobileMenuBtn.querySelector('i');
         
-        if (this.navLinks.classList.contains('mobile-open')) {
+        if (isOpen) {
             icon.className = 'fas fa-times';
+            this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            // Focus first link for accessibility
+            const firstLink = this.navLinks.querySelector('a');
+            if (firstLink) firstLink.focus();
         } else {
             icon.className = 'fas fa-bars';
+            this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
     }
 
     closeMobileMenu() {
         this.navLinks.classList.remove('mobile-open');
         this.mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+        this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
 
     handleResize() {
         if (window.innerWidth <= 768) {
+            // Mobile view - show hamburger
             this.mobileMenuBtn.style.display = 'flex';
         } else {
+            // Desktop view - hide hamburger and close menu
             this.mobileMenuBtn.style.display = 'none';
             this.closeMobileMenu();
         }
@@ -365,15 +388,232 @@ class TechStackAnimation {
     }
 }
 
+// Responsive Utilities and Mobile Optimizations
+class ResponsiveManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.handleViewportHeight();
+        this.addTouchSupport();
+        this.optimizeForMobile();
+        
+        // Handle orientation changes
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.handleViewportHeight();
+                this.updateLayout();
+            }, 100);
+        });
+
+        // Debounced resize handler
+        window.addEventListener('resize', debounce(() => {
+            this.handleViewportHeight();
+            this.updateLayout();
+        }, 250));
+    }
+
+    // Fix iOS viewport height issues
+    handleViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    // Add touch-friendly interactions
+    addTouchSupport() {
+        // Prevent zoom on double tap for buttons
+        document.querySelectorAll('.btn, .theme-toggle, .mobile-menu-toggle').forEach(element => {
+            element.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                element.click();
+            }, { passive: false });
+        });
+
+        // Improve scroll performance on mobile
+        document.addEventListener('touchstart', () => {}, { passive: true });
+        document.addEventListener('touchmove', () => {}, { passive: true });
+    }
+
+    // Mobile-specific optimizations
+    optimizeForMobile() {
+        // Reduce animations on mobile for better performance
+        if (window.innerWidth <= 768) {
+            document.body.classList.add('mobile-device');
+            
+            // Disable CSS animations for better performance on older devices
+            const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+            if (isLowEndDevice) {
+                document.body.classList.add('low-end-device');
+            }
+        }
+
+        // Add hover effect alternatives for touch devices
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+    }
+
+    updateLayout() {
+        // Trigger any layout updates needed on resize
+        const event = new CustomEvent('layoutUpdate');
+        document.dispatchEvent(event);
+    }
+}
+
+// Enhanced Touch Gestures for Carousel
+class TouchGestureManager {
+    constructor(carousel) {
+        this.carousel = carousel;
+        this.startX = 0;
+        this.startY = 0;
+        this.currentX = 0;
+        this.currentY = 0;
+        this.isDragging = false;
+        this.threshold = 50; // Minimum distance for swipe
+        this.restraint = 100; // Maximum distance perpendicular to swipe direction
+        this.allowedTime = 500; // Maximum time for swipe
+        this.startTime = 0;
+        
+        this.init();
+    }
+
+    init() {
+        const track = this.carousel.track;
+        
+        track.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+        track.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+        track.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+        
+        // Add visual feedback for touch
+        track.addEventListener('touchstart', () => {
+            track.style.transition = 'none';
+        });
+        
+        track.addEventListener('touchend', () => {
+            track.style.transition = 'transform 0.3s ease';
+        });
+    }
+
+    handleTouchStart(e) {
+        const touch = e.touches[0];
+        this.startX = touch.clientX;
+        this.startY = touch.clientY;
+        this.startTime = Date.now();
+        this.isDragging = true;
+    }
+
+    handleTouchMove(e) {
+        if (!this.isDragging) return;
+        
+        const touch = e.touches[0];
+        this.currentX = touch.clientX;
+        this.currentY = touch.clientY;
+        
+        // Prevent scrolling if horizontal swipe is detected
+        const deltaX = Math.abs(this.currentX - this.startX);
+        const deltaY = Math.abs(this.currentY - this.startY);
+        
+        if (deltaX > deltaY && deltaX > 10) {
+            e.preventDefault();
+        }
+    }
+
+    handleTouchEnd(e) {
+        if (!this.isDragging) return;
+        
+        const elapsedTime = Date.now() - this.startTime;
+        const deltaX = this.startX - this.currentX;
+        const deltaY = Math.abs(this.startY - this.currentY);
+        
+        // Check if it's a valid swipe
+        if (elapsedTime <= this.allowedTime && 
+            Math.abs(deltaX) >= this.threshold && 
+            deltaY <= this.restraint) {
+            
+            if (deltaX > 0) {
+                this.carousel.nextSlide();
+            } else {
+                this.carousel.prevSlide();
+            }
+        }
+        
+        this.isDragging = false;
+    }
+}
+
+// Enhanced Mobile Menu with better accessibility
+class EnhancedMobileMenu extends MobileMenu {
+    constructor() {
+        super();
+        this.addKeyboardNavigation();
+        this.improveAccessibility();
+    }
+
+    addKeyboardNavigation() {
+        // Tab navigation within mobile menu
+        this.navLinks.addEventListener('keydown', (e) => {
+            const links = Array.from(this.navLinks.querySelectorAll('a'));
+            const currentIndex = links.indexOf(document.activeElement);
+            
+            switch (e.key) {
+                case 'ArrowUp':
+                    e.preventDefault();
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : links.length - 1;
+                    links[prevIndex].focus();
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    const nextIndex = currentIndex < links.length - 1 ? currentIndex + 1 : 0;
+                    links[nextIndex].focus();
+                    break;
+            }
+        });
+    }
+
+    improveAccessibility() {
+        // Add ARIA labels and improve screen reader support
+        this.navLinks.setAttribute('role', 'menu');
+        this.navLinks.querySelectorAll('a').forEach(link => {
+            link.setAttribute('role', 'menuitem');
+        });
+        
+        // Announce menu state changes
+        const announcer = document.createElement('div');
+        announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-atomic', 'true');
+        announcer.className = 'sr-only';
+        document.body.appendChild(announcer);
+        
+        this.announcer = announcer;
+    }
+
+    toggleMobileMenu() {
+        super.toggleMobileMenu();
+        
+        // Announce state change for screen readers
+        const isOpen = this.navLinks.classList.contains('mobile-open');
+        this.announcer.textContent = isOpen ? 'Navigation menu opened' : 'Navigation menu closed';
+    }
+}
+
 // Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {    // Initialize all components
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize core components
     new ThemeManager();
     new SmoothScroll();
     new AnimationObserver();
     new HeaderScrollEffect();
     new ContactForm();
-    new MobileMenu();
-    new ProjectsCarousel();    new TechStackAnimation();
+    new TechStackAnimation();
+    
+    // Initialize responsive and mobile components
+    new ResponsiveManager();
+    new EnhancedMobileMenu();
+    
+    // Initialize carousel with touch support
+    const projectsCarousel = new ProjectsCarousel();
+    new TouchGestureManager(projectsCarousel);
 
     // Initialize Typed.js for typing animation
     var typingEffect = new Typed(".typedText", {
