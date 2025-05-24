@@ -153,11 +153,62 @@ body {
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-primary);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
 .nav-links a:hover {
   color: var(--accent-primary);
+}
+
+.nav-links a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-links a.active {
+  color: var(--accent-primary);
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(110, 87, 224, 0.3);
+}
+
+.nav-links a.active::after {
+  transform: translateX(-50%) scaleX(1);
+  box-shadow: 0 0 8px rgba(110, 87, 224, 0.6);
+}
+
+/* Smooth animation for navigation state changes */
+.nav-links a {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a::after {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark theme adjustments for navigation */
+[data-theme="dark"] .nav-links a.active {
+  text-shadow: 0 0 8px rgba(139, 124, 246, 0.4);
+}
+
+[data-theme="dark"] .nav-links a.active::after {
+  box-shadow: 0 0 8px rgba(139, 124, 246, 0.7);
 }
 
 .theme-toggle {
@@ -903,13 +954,17 @@ main {
   .nav-links.mobile-open {
     left: 0;
   }
-  
-  .nav-links a {
+    .nav-links a {
     font-size: 1.1rem;
     padding: 1rem 2rem;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
+    position: relative;
+  }
+  
+  .nav-links a::after {
+    bottom: 8px;
   }
   
   .mobile-menu-toggle {

@@ -33,14 +33,15 @@ class ThemeManager {
     }
 }
 
-// Smooth Scrolling for Navigation Links
+// Smooth Scrolling for Navigation Links (simplified since NavigationScrollSpy handles navigation)
 class SmoothScroll {
     constructor() {
         this.init();
     }
 
     init() {
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
+        // Handle non-navigation anchor links (like scroll down button)
+        document.querySelectorAll('a[href^="#"]:not(.nav-links a)').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = link.getAttribute('href');
@@ -597,11 +598,150 @@ class EnhancedMobileMenu extends MobileMenu {
     }
 }
 
+// Navigation Active State Manager with Scroll Spy
+class NavigationScrollSpy {
+    constructor() {
+        this.navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        this.sections = [];
+        this.currentActiveLink = null;
+        this.init();
+    }
+
+    init() {
+        // Get all sections that correspond to navigation links
+        this.navLinks.forEach(link => {
+            const targetId = link.getAttribute('href').substring(1);
+            const section = document.getElementById(targetId);
+            if (section) {
+                this.sections.push({
+                    element: section,
+                    id: targetId,
+                    link: link
+                });
+            }
+        });
+
+        // Set up intersection observer
+        this.setupIntersectionObserver();
+        
+        // Handle manual navigation clicks
+        this.setupNavigationClicks();
+        
+        // Set initial active state
+        this.updateActiveNavigation();
+    }
+
+    setupIntersectionObserver() {
+        const options = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% visible from top
+            threshold: 0
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const sectionData = this.sections.find(s => s.element === entry.target);
+                if (sectionData) {
+                    if (entry.isIntersecting) {
+                        this.setActiveNavigation(sectionData.link);
+                    }
+                }
+            });
+        }, options);
+
+        // Observe all sections
+        this.sections.forEach(section => {
+            this.observer.observe(section.element);
+        });
+    }
+
+    setupNavigationClicks() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                this.clearActiveStates();
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                this.currentActiveLink = link;
+                
+                // Smooth scroll to target
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const mobileMenu = document.querySelector('.nav-links');
+                if (mobileMenu && mobileMenu.classList.contains('mobile-open')) {
+                    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                    if (mobileMenuToggle) {
+                        mobileMenuToggle.click();
+                    }
+                }
+            });
+        });
+    }
+
+    setActiveNavigation(activeLink) {
+        if (this.currentActiveLink === activeLink) return;
+        
+        this.clearActiveStates();
+        activeLink.classList.add('active');
+        this.currentActiveLink = activeLink;
+    }
+
+    clearActiveStates() {
+        this.navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+    }
+
+    updateActiveNavigation() {
+        // Set initial active state based on current scroll position
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        for (let i = this.sections.length - 1; i >= 0; i--) {
+            const section = this.sections[i];
+            const rect = section.element.getBoundingClientRect();
+            const offsetTop = rect.top + scrollTop;
+            
+            if (scrollTop >= offsetTop - 100) {
+                this.setActiveNavigation(section.link);
+                break;
+            }
+        }
+        
+        // If no section is found, activate the first one (Home)
+        if (!this.currentActiveLink && this.navLinks.length > 0) {
+            this.setActiveNavigation(this.navLinks[0]);
+        }
+    }
+
+    // Method to manually set active state (useful for external calls)
+    activateSection(sectionId) {
+        const targetLink = Array.from(this.navLinks).find(link => 
+            link.getAttribute('href') === `#${sectionId}`
+        );
+        if (targetLink) {
+            this.setActiveNavigation(targetLink);
+        }
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize core components
     new ThemeManager();
     new SmoothScroll();
+    new NavigationScrollSpy(); // Add navigation scroll spy
     new AnimationObserver();
     new HeaderScrollEffect();
     new ContactForm();
