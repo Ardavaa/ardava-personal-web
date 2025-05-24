@@ -723,9 +723,76 @@ main {
   background-color: var(--accent-primary);
 }
 
-/* Update existing project grid styles for carousel compatibility */
-.projects-grid {
-  display: none; /* Hide the old grid, we're using carousel now */
+/* Scroll Down Button Styles */
+.scroll-down-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.scroll-down-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.scroll-down-btn i {
+  font-size: 1rem;
+}
+
+.scroll-down-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Scroll Down Button Animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.scroll-down-btn {
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.scroll-down-btn:hover {
+  animation-play-state: paused;
+}
+
+[data-theme="dark"] .scroll-down-btn {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Responsive styles for scroll down button */
+@media (max-width: 768px) {
+  .scroll-down-container {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-down-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* Responsive Design */
@@ -905,42 +972,9 @@ main {
     font-size: 1rem;
   }
   
-  .carousel-btn-prev {
-    left: -20px;
-  }
-  
-  .carousel-btn-next {
-    right: -20px;
-  }
-  
-  /* Tech Stack */
-  .tech-category {
-    padding: 1.5rem;
-  }
-  
-  .tech-items {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 0.75rem;
-  }
-  
-  .tech-item {
-    padding: 0.75rem;
-  }
-  
-  .tech-item i {
-    font-size: 1.5rem;
-  }
-  
-  /* Contact */
-  .contact-methods {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .contact-method {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
+  /* Scroll Down Button */
+  .scroll-down-container {
+    margin-top: 2rem;
   }
 }
 
