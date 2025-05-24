@@ -1,96 +1,48 @@
-# Personal Website MVP
+# Ardava Barus - Personal Portfolio Website
 
-A modern, responsive personal portfolio website featuring a clean design with light/dark theme toggle.
+Welcome to my personal portfolio website! This is where I showcase my work, skills, and professional journey as an AI/ML Engineer.
 
-## Features
+## About This Website
 
-- **Profile Section**: Professional introduction with circular profile photo
-- **Downloadable Resume**: One-click PDF download
-- **Theme Toggle**: Switch between light and dark modes
-- **Project Showcase**: Grid layout with project cards displaying images, descriptions, and links
-- **Contact Section**: Professional contact information and social links
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Modern UI**: Clean, minimalist design with smooth animations
+This modern, responsive portfolio website represents my professional identity and technical capabilities. Built with a focus on clean design and user experience, it features:
 
-## Setup Instructions
+### 🎨 **Design & Experience**
+- **Modern Interface**: Clean, minimalist design with smooth animations
+- **Dark/Light Theme**: Toggle between themes for comfortable viewing
+- **Responsive Design**: Optimized experience across all devices - desktop, tablet, and mobile
+- **Professional Presentation**: Carefully crafted to reflect my attention to detail
 
-1. **Add Your Content**:
-   - Replace placeholder text in `index.html` with your information
-   - Add your profile photo as `assets/profile-photo.jpg`
-   - Add project images as `assets/project1.jpg`, `assets/project2.jpg`, etc.
-   - Add your resume as `assets/resume.pdf`
+### 🚀 **Key Sections**
+- **About Me**: Professional introduction showcasing my passion for AI/ML engineering
+- **Tech Stack**: Comprehensive overview of my technical skills and expertise
+- **Projects**: Curated selection of my AI/ML projects with live demos and source code
+- **Contact**: Easy ways to connect and collaborate
 
-2. **Customize**:
-   - Update the page title and meta description
-   - Modify project information and links
-   - Update contact information and social media links
-   - Adjust colors in the CSS custom properties if desired
+### 💼 **Professional Features**
+- **Resume Download**: One-click access to my latest resume
+- **Project Showcase**: Interactive carousel displaying my AI/ML projects
+- **Contact Integration**: Multiple ways to reach out for opportunities
+- **Responsive Portfolio**: Seamless experience on any device
 
-3. **Deploy**:
-   - Upload all files to your web hosting service
-   - Ensure the `assets` folder contains all your images and resume
 
-## File Structure
+### Technical Highlights
+- Built with modern web technologies for optimal performance
+- Accessible design following web standards
+- Smooth animations and interactions
+- Mobile-first responsive design
+- Fast loading and optimized for all devices
 
-```
-personal-website/
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles with theme support
-├── script.js           # JavaScript functionality
-├── assets/            # Assets folder
-│   ├── profile-photo.jpg
-│   ├── resume.pdf
-│   ├── project1.jpg
-│   ├── project2.jpg
-│   └── project3.jpg
-└── README.md          # This file
-```
+### Professional Focus
+As an AI/ML Engineer, this portfolio reflects my:
+- Attention to detail and quality
+- Understanding of user experience
+- Technical implementation skills
+- Professional presentation standards
 
-## Technologies Used
+## Connect With Me
 
-- HTML5
-- CSS3 (Custom Properties, Grid, Flexbox)
-- Vanilla JavaScript
-- Font Awesome Icons
-- Google Fonts (Inter)
+Visit the website to explore my work, download my resume, and get in touch for collaboration opportunities. Whether you're looking for an AI/ML Engineer or interested in discussing innovative projects, I'd love to connect!
 
-## Browser Support
+---
 
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Responsive design for mobile devices
-- Progressive enhancement for older browsers
-
-## Customization
-
-### Theme Colors
-Edit the CSS custom properties in `styles.css` to change the color scheme:
-
-```css
-:root {
-  --accent-primary: #3b82f6;  /* Primary accent color */
-  --accent-hover: #2563eb;    /* Hover state color */
-  /* ... other colors */
-}
-```
-
-### Adding Projects
-To add more projects, duplicate a project card in the HTML and update the content.
-
-### Contact Form
-The JavaScript includes a basic contact form handler. You can integrate it with services like Formspree, Netlify Forms, or your own backend.
-
-## Performance Features
-
-- Optimized images and assets
-- Smooth scrolling and transitions
-- Lazy loading animations
-- Minimal external dependencies
-- Clean, semantic HTML
-
-## Accessibility
-
-- Semantic HTML structure
-- Proper alt text for images
-- Keyboard navigation support
-- Screen reader friendly
-- High contrast theme options
+*This portfolio website is continuously updated to reflect my latest projects and professional growth. Thank you for visiting!*
