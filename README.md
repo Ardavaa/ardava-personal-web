@@ -14,7 +14,6 @@ This modern, responsive portfolio website represents my professional identity an
 - **Dark/Light Theme**: Toggle between themes for comfortable viewing
 - **Responsive Design**: Optimized experience across all devices - desktop, tablet, and mobile
 - **Interactive Navigation**: Smart scroll-spy navigation with active state indicators
-- **Touch Gestures**: Swipe support for mobile carousel interactions
 - **Professional Presentation**: Carefully crafted to reflect my attention to detail
 
 ### 🚀 **Key Sections**
@@ -43,7 +42,6 @@ This modern, responsive portfolio website represents my professional identity an
 
 ### 🎯 **Interactive Features**
 - **Scroll Spy Navigation**: Auto-highlighting navigation based on current section
-- **Touch Gestures**: Swipe left/right on project carousel for mobile users
 - **Smooth Scrolling**: Elegant transitions between sections
 - **Theme Toggle**: Persistent light/dark mode preference
 - **Animated Elements**: Subtle animations triggered by scroll position

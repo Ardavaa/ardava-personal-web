@@ -278,34 +278,7 @@ class ProjectsCarousel {
     addEventListeners() {
         this.prevBtn.addEventListener('click', () => this.prevSlide());
         this.nextBtn.addEventListener('click', () => this.nextSlide());
-        
-        // Touch/swipe support
-        let startX = 0;
-        let currentX = 0;
-        let isDragging = false;
-
-        this.track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        });
-
-        this.track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentX = e.touches[0].clientX;
-        });
-
-        this.track.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            const diffX = startX - currentX;
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    this.nextSlide();
-                } else {
-                    this.prevSlide();
-                }
-            }
-            isDragging = false;
-        });
+          // Touch gestures removed
     }
 
     updateCarousel() {
@@ -419,21 +392,10 @@ class ResponsiveManager {
     handleViewportHeight() {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-
-    // Add touch-friendly interactions
+    }    // Touch support removed for simplicity
     addTouchSupport() {
-        // Prevent zoom on double tap for buttons
-        document.querySelectorAll('.btn, .theme-toggle, .mobile-menu-toggle').forEach(element => {
-            element.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                element.click();
-            }, { passive: false });
-        });
-
-        // Improve scroll performance on mobile
+        // Basic mobile optimizations only
         document.addEventListener('touchstart', () => {}, { passive: true });
-        document.addEventListener('touchmove', () => {}, { passive: true });
     }
 
     // Mobile-specific optimizations
@@ -750,10 +712,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize responsive and mobile components
     new ResponsiveManager();
     new EnhancedMobileMenu();
-    
-    // Initialize carousel with touch support
+      // Initialize carousel
     const projectsCarousel = new ProjectsCarousel();
-    new TouchGestureManager(projectsCarousel);
 
     // Initialize Typed.js for typing animation
     var typingEffect = new Typed(".typedText", {
