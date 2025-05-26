@@ -1406,3 +1406,38 @@ html {
     page-break-inside: avoid;
   }
 }
+
+/* Swipe Help Indicators */
+.swipe-help {
+    display: none;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    animation: fadeInOut 2s ease-in-out infinite;
+}
+
+.arrow-left, .arrow-right {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+@media (max-width: 768px) {
+    .swipe-help {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .projects-carousel {
+        margin-bottom: 3rem;  /* Make room for swipe indicators */
+    }
+}

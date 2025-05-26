@@ -273,12 +273,17 @@ class ProjectsCarousel {
             indicator.addEventListener('click', () => this.goToSlide(i));
             this.indicatorsContainer.appendChild(indicator);
         }
-    }
-
-    addEventListeners() {
+    }    addEventListeners() {
         this.prevBtn.addEventListener('click', () => this.prevSlide());
         this.nextBtn.addEventListener('click', () => this.nextSlide());
-          // Touch gestures removed
+        
+        // Add swipe buttons for mobile
+        if (window.innerWidth <= 768) {
+            const swipeHelp = document.createElement('div');
+            swipeHelp.className = 'swipe-help';
+            swipeHelp.innerHTML = '<div class="arrow-left">←</div><div class="arrow-right">→</div>';
+            this.track.parentElement.appendChild(swipeHelp);
+        }
     }
 
     updateCarousel() {
@@ -424,86 +429,7 @@ class ResponsiveManager {
     }
 }
 
-// Enhanced Touch Gestures for Carousel
-class TouchGestureManager {
-    constructor(carousel) {
-        this.carousel = carousel;
-        this.startX = 0;
-        this.startY = 0;
-        this.currentX = 0;
-        this.currentY = 0;
-        this.isDragging = false;
-        this.threshold = 50; // Minimum distance for swipe
-        this.restraint = 100; // Maximum distance perpendicular to swipe direction
-        this.allowedTime = 500; // Maximum time for swipe
-        this.startTime = 0;
-        
-        this.init();
-    }
-
-    init() {
-        const track = this.carousel.track;
-        
-        track.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-        track.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
-        track.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
-        
-        // Add visual feedback for touch
-        track.addEventListener('touchstart', () => {
-            track.style.transition = 'none';
-        });
-        
-        track.addEventListener('touchend', () => {
-            track.style.transition = 'transform 0.3s ease';
-        });
-    }
-
-    handleTouchStart(e) {
-        const touch = e.touches[0];
-        this.startX = touch.clientX;
-        this.startY = touch.clientY;
-        this.startTime = Date.now();
-        this.isDragging = true;
-    }
-
-    handleTouchMove(e) {
-        if (!this.isDragging) return;
-        
-        const touch = e.touches[0];
-        this.currentX = touch.clientX;
-        this.currentY = touch.clientY;
-        
-        // Prevent scrolling if horizontal swipe is detected
-        const deltaX = Math.abs(this.currentX - this.startX);
-        const deltaY = Math.abs(this.currentY - this.startY);
-        
-        if (deltaX > deltaY && deltaX > 10) {
-            e.preventDefault();
-        }
-    }
-
-    handleTouchEnd(e) {
-        if (!this.isDragging) return;
-        
-        const elapsedTime = Date.now() - this.startTime;
-        const deltaX = this.startX - this.currentX;
-        const deltaY = Math.abs(this.startY - this.currentY);
-        
-        // Check if it's a valid swipe
-        if (elapsedTime <= this.allowedTime && 
-            Math.abs(deltaX) >= this.threshold && 
-            deltaY <= this.restraint) {
-            
-            if (deltaX > 0) {
-                this.carousel.nextSlide();
-            } else {
-                this.carousel.prevSlide();
-            }
-        }
-        
-        this.isDragging = false;
-    }
-}
+// End of ResponsiveManager class
 
 // Enhanced Mobile Menu with better accessibility
 class EnhancedMobileMenu extends MobileMenu {
