@@ -1,3 +1,21 @@
+/* Tech logo SVGs in AI/ML Frameworks & Libraries */
+.tech-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+/* Tech logo styles */
+.tech-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+
 /* CSS Custom Properties for Theme Management */
 :root {
   /* Light Theme Colors */
@@ -628,6 +646,10 @@ main {
   padding: 2rem;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .tech-category:hover {
@@ -653,14 +675,18 @@ main {
 .tech-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.7rem;
   justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  margin: auto 0;
 }
 
 .tech-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 1.2rem;
   background-color: var(--bg-primary);
@@ -668,9 +694,11 @@ main {
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   text-align: center;
-  min-width: 120px;
+  width: 130px;
+  height: 130px;
   position: relative;
   box-shadow: 0 3px 10px var(--shadow-light);
+  margin: 0.5rem;
 }
 
 .tech-item.featured {
@@ -695,6 +723,9 @@ main {
   transform: translateY(-5px);
   background-color: var(--accent-primary);
   box-shadow: 0 5px 15px rgba(110, 87, 224, 0.3);
+}
+.tech-item:hover .tech-icon-wrapper i {
+  color: #fff;
 }
 
 .tech-item:hover .tech-icon-wrapper i {
@@ -819,11 +850,18 @@ main {
 }
 
 /* Scroll Down Button Styles */
+
 .scroll-down-container {
   display: flex;
   justify-content: center;
   margin-top: 4rem;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .scroll-down-container {
+    display: none;
+  }
 }
 
 .scroll-down-btn {
